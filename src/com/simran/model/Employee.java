@@ -1,4 +1,4 @@
-package mypack;
+package com.simran.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -6,26 +6,27 @@ import javax.persistence.Id;
 @Entity
 public class Employee {
 	@Id
-	Integer EmployeeId;
-	String EmployeeName;
-	String EmployeeEmail;
+	private Integer employeeId;
+	private String employeeName;
+	private String employeeEmail;
 	public Integer getEmployeeId() {
-		return EmployeeId;
+		return employeeId;
 	}
 	public void setEmployeeId(Integer employeeId) {
-		EmployeeId = employeeId;
+		this.employeeId = employeeId;
 	}
 	public String getEmployeeName() {
-		return EmployeeName;
+		return employeeName;
 	}
 	public void setEmployeeName(String employeeName) {
-		EmployeeName = employeeName;
+		this.employeeName = employeeName;
 	}
 	public String getEmployeeEmail() {
-		return EmployeeEmail;
+		return employeeEmail;
 	}
 	public void setEmployeeEmail(String employeeEmail) {
-		EmployeeEmail = employeeEmail;
+		this.employeeEmail = employeeEmail;
 	}
+
 
 }
