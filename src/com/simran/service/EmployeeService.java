@@ -1,64 +1,86 @@
 package com.simran.service;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 
+import com.mysql.cj.Query;
 import com.simran.model.Employee;
 
 public class EmployeeService {
+	
+	private static EntityManagerFactory emf;
+	private static EntityManager em;
+	private static EntityTransaction et;
+	
+	static {
+		emf = Persistence.createEntityManagerFactory("EmployeePersistence");
+	}
 
 	public static void addRecord(Employee employee) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("raj");
-		EntityManager em = emf.createEntityManager();
 		
-		EntityTransaction et = em.getTransaction();
+		em = emf.createEntityManager();
+		et = em.getTransaction();
 		et.begin();
-		em.persist(employee);
+			em.persist(employee.getDetails());
+			em.persist(employee);
 		et.commit();
-		System.out.println("Employee Added");
 		em.close();
-		emf.close();
-		
 	}
 
 	public static void updateRecord(Employee employee) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("raj");
-		EntityManager em = emf.createEntityManager();
+		em = emf.createEntityManager();
 		Employee employee1 = em.find(Employee.class, employee.getEmployeeId());
-		EntityTransaction et = em.getTransaction();
+		et = em.getTransaction();
 		et.begin();
-			employee1.setEmployeeName(employee.getEmployeeName());
-			employee1.setEmployeeEmail(employee.getEmployeeEmail());
+			//update in progress
 		et.commit();
-		System.out.println("Employee Added");
+		System.out.println("Method work in progress!");
 		em.close();
-		emf.close();
 	}
 
-	public static void delateRecord(Integer employeeId) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("raj");
-		EntityManager em = emf.createEntityManager();
+	public static void deleteRecord(Integer employeeId) {
+		em = emf.createEntityManager();
 		Employee employee = em.find(Employee.class, employeeId);
-		EntityTransaction et  = em.getTransaction();
+		et  = em.getTransaction();
 		et.begin();
 			em.remove(employee);
 			System.out.println("Employee Deleted");
 			et.commit();
 		em.close();
-		emf.close();
 		
 	}
 
 	public static Employee findRecord(Integer employeeId) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("raj");
-		EntityManager em = emf.createEntityManager();
-		Employee employee = em.find(Employee.class, employeeId);em.close();
+		em = emf.createEntityManager();
+		Employee employee = em.find(Employee.class, employeeId);
 		System.out.println("Employee found!");
-		emf.close();
+		em.close();
 		return employee;
+	}
+
+	public static void listAll() {
+		em = emf.createEntityManager();
+		String jpql ="select e from Employee e";
+		javax.persistence.Query q = em.createQuery(jpql);
+		List<Employee> l = q.getResultList();
+		Iterator<Employee> itr = l.iterator();
+		System.out.println("\tEmployee Id\tEmployee UserName\tEmployee Password\tEmployee Name\tEmployee Email\tEmployee DOB\tEmployee DOJ\tEmployee Address");
+		System.out.println("\t------------------------------------------------------------------------------------------------------------------------------------------------------");
+		while(itr.hasNext()) {
+			Employee employee = itr.next();
+			System.out.println("\t\t"+ employee.getEmployeeId()+ "\t\t"+ employee.getEmployeeUserName()+"\t\t"+employee.getEmployeePassword()+"\t\t"+employee.getDetails().getEmployeeName()
+					+"\t\t"+employee.getDetails().getEmployeeEmail()+"\t\t"+employee.getDetails().getEmployeeDob()+"\t\t"+employee.getDetails().getEmployeeDoj()
+					+"\t\t"+employee.getDetails().getEmployeeAddress());
+		}
+		System.out.println("\t------------------------------------------------------------------------------------------------------------------------------------------------------");
+		
+		em.close();
 	}
 
 }
