@@ -3,11 +3,11 @@ package com.simran.presentation;
 import java.util.Scanner;
 
 import com.simran.model.Employee;
-import com.simran.service.EmployeeService;
+
 
 public class AdminClient {
 
-	public static void menu(String userName, String password) {
+	public static void menu() {
 		Scanner input = new Scanner (System.in);
 		while(true) {
 		System.out.println("----------------------");
@@ -27,20 +27,19 @@ public class AdminClient {
 		switch(option)
 		{
 			case 1:
-				ManageEmployee m = new ManageEmployee();
-				m.menu();
+				 ManageEmployee.menu();
 				break;
 			case 2:
-				System.out.println("In Progress! ");
+				AddDepartment.menu();
 				break;
 			case 3:
-				System.out.println("In Progress! ");
+				AddGrade.menu();
 				break;
 			case 4:
-				System.out.println("In Progress! ");
+				EmployeeGrade.menu();
 				break;
 			case 5:
-				System.out.println("In Progress! ");
+				EmployeeSalary.menu();
 				break;
 			case 6:
 				System.out.println("Exit");
@@ -55,4 +54,5 @@ public class AdminClient {
 		
 	}
 	}
+
 }

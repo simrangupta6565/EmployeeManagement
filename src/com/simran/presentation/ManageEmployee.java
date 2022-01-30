@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import com.simran.model.Employee;
 import com.simran.model.EmployeeDetails;
-import com.simran.service.EmployeeService;
+import com.simran.service.ManageService;
 
 public class ManageEmployee {
 	public static void menu() {
@@ -28,7 +28,8 @@ public class ManageEmployee {
 			System.out.println("3. Delete  Record");
 			System.out.println("4. Find Record");
 			System.out.println("5. List All Recored");
-			System.out.println("6. Exit");
+			System.out.println("6. Back");
+			System.out.println("7. Exit");
 			
 			System.out.println("Enter the Choice:");
 			Integer option = Integer.parseInt(input.nextLine());
@@ -60,7 +61,7 @@ public class ManageEmployee {
 					details.setEmployeeDoj(employeeDoj);
 					details.setEmployeeAddress(employeeAddress);
 					employee.setDetails(details);
-					EmployeeService.addRecord(employee);
+					ManageService.addRecord(employee);
 					System.out.println("Employee Added!");
 					break;
 				case 2:
@@ -87,21 +88,21 @@ public class ManageEmployee {
 					details.setEmployeeDoj(employeeDoj);
 					details.setEmployeeAddress(employeeAddress);
 					employee.setDetails(details);
-					EmployeeService.updateRecord(employee);
+					ManageService.updateRecord(employee);
 					System.out.println("Employee Updated!");
 					break;
 				case 3:
-					System.out.println("Enter the Teacher Id:");
+					System.out.println("Enter the Employee Id:");
 					Integer employeeId = Integer.parseInt(input.nextLine());
 					
-					EmployeeService.deleteRecord(employeeId);
+					ManageService.deleteRecord(employeeId);
 					System.out.println("Employee Removed!");
 					break;
 				case 4:
-					System.out.println("Enter the Teacher Id:");
+					System.out.println("Enter the Employee Id:");
 					employeeId = Integer.parseInt(input.nextLine());
 					
-					employee =EmployeeService.findRecord(employeeId);
+					employee =ManageService.findRecord(employeeId);
 					if(employee==null) {
 						System.out.println("Record Not Found!");
 					}
@@ -115,9 +116,12 @@ public class ManageEmployee {
 					}
 					break;
 				case 5:
-					EmployeeService.listAll();
+					ManageService.listAll();
 					break;
 				case 6:
+					AdminClient.menu();
+					break;
+				case 7:
 					System.out.println("Exit");
 					System.exit(0);
 			}

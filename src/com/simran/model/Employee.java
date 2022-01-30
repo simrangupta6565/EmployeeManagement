@@ -1,9 +1,12 @@
 package com.simran.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -11,9 +14,11 @@ public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer employeeId;
+	@Column(unique=true)
 	private String employeeUserName;
 	private String employeePassword;
-	@OneToOne
+	@OneToOne(cascade= CascadeType.ALL)
+	@JoinColumn(name="EmployeeEmail")
 	private EmployeeDetails details;
 	public EmployeeDetails getDetails() {
 		return details;

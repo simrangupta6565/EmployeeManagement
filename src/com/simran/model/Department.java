@@ -1,24 +1,24 @@
 package com.simran.model;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 @Entity
-
 public class Department {
 	@Id
-	private Integer departmentId;
-	private String departmentName;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer DepartmentId;
+	private String DepartmentName;
 	public Integer getDepartmentId() {
-		return departmentId;
-	}
-	public void setDepartmentId(Integer departmentId) {
-		this.departmentId = departmentId;
+		return DepartmentId;
 	}
 	public String getDepartmentName() {
-		return departmentName;
+		return DepartmentName;
 	}
 	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
+		DepartmentName = departmentName;
 	}
+	
 	
 }
